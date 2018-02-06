@@ -13,8 +13,7 @@ class ChatController extends Controller
     }
 
     public function getDenuncias(){
-
-    	return view('');
+    	return view('paginas.denuncias');
 
     }
 
@@ -26,7 +25,7 @@ class ChatController extends Controller
 
      public function putDenuncias(){
 
-    	return view('');
+    	return view('paginas.denuncia');
 
     }
 

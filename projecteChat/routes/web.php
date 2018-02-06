@@ -25,11 +25,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/index', 'ChatController@getIndex')->name('index');
 
-Route::get('/denuncias', 'ChatController@getDenuncias')->name('denuncias');
+Route::get('/denuncia', 'ChatController@getDenuncias');
 
 Route::get('/chatroom', 'ChatController@getChatroom')->name('chatroom');
 
-Route::put('/denuncias', 'ChatController@putDenuncias')->name('denuncias');
+Route::put('/denuncia', 'ChatController@putDenuncias');
 
 Route::get('/foro', 'ChatController@getForo')->name('foro');
 
