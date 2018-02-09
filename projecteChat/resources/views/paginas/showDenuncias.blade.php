@@ -25,20 +25,33 @@
 	</div>
 	</div>
 
-	<div class="row">
+	@foreach( $mensajesDenuncias as $mensajesDenuncia )
+
+		<div class="row marginTop">
+			<div class="col-md-offset-1 col-md-10">
+				<span>{{ $mensajesDenuncia->mensaje }}</span>
+			</div>
+  		</div>
+
+
+	@endforeach
+
+	<div class="row marginTop">
 		<div class="col-md-offset-1 col-md-10">
 			<div class="row text-center">
-				<form>
+				<form method="POST">
+					{{ method_field('PUT') }}
+					{{ csrf_field() }}
 					<div class="form-group">
-					  <div class="col-md-4">                     
-					    <textarea class="form-control" id="textarea" name="textarea" placeholder="Escribe la contestacion..."></textarea>
+					  <div class="col-md-offset-3 col-md-6">                     
+					    <textarea class="form-control" id="textarea" name="mensaje" placeholder="Escribe la respuesta..."></textarea>
 					  </div>
 					</div>
 
 					<!-- Button -->
 					<div class="form-group">
-					  <div class="col-md-4">
-					    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Enviar</button>
+					  <div class="col-md-offset-5 col-md-2">
+					    <button id="singlebutton" name="singlebutton" class="marginTop col-md-12 btn btn-primary">Enviar</button>
 					  </div>
 					</div>
 				</form>
