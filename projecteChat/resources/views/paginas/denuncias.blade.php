@@ -1,6 +1,9 @@
 @section('head')
 	@parent
-	<link rel="stylesheet" src="{{ URL::asset('css/denuncia.css') }}"></link>
+<link rel="stylesheet" href="{{ URL::asset('css/denuncias.css') }}" />
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDumTwXUkXcIKfgTOcx7uQbEeQDzgGUEI8"></script>
+  <script type="text/javascript" src="{{ URL::asset('js/gmaps.min.js') }}"></script>
+  <script type="text/javascript" src="{{ URL::asset('js/denuncias.js') }}"></script>
 @stop
 
 @section('title')
@@ -11,47 +14,70 @@
 
 @section('content')
 
- <form class="form-horizontal" method="post">
-        <fieldset>
-            <legend class="text-center header" id="denunciar">DENUNCIAR</legend>
-            <div class="form-group">
-          <label class="col-md-4 control-label" for="fimagenGrupo">
-            <span class="modal-title">Imagen</span>
-          </label>
-          <div class="col-md-4">
-            <label class="input-text" style="font-weight: normal;" for="fimagenGrupo"><p>Clica para insertar una imagen</p></label>
-            <input id="fimagenGrupo" style="display: none;" name="filebutton" type="file">
+<form enctype="multipart/form-data" class="form-horizontal" method="post">
+{{ method_field('PUT') }}
+{{ csrf_field() }}
+  <fieldset>
+      <legend class="text-center header" id="denunciar">DENUNCIAR</legend>
+
+      @if (isset($mensaje) && array_key_exists("success", $mensaje))
+          <div class="alert alert-success help-block" role="alert">
+              <strong>{{ $mensaje["success"] }}</strong>
           </div>
-        </div>
-
-        <!-- Textarea -->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="textarea">Mensaje</label>
-          <div class="col-md-4">                     
-            <textarea class="form-control" id="textarea" name="textarea" placeholder="Escriu el teu problema..."></textarea>
+      @endif
+      @if (isset($mensaje) && array_key_exists("user", $mensaje))
+          <div class="alert alert-danger help-block" role="alert">
+              <strong>{{ $mensaje["user"] }}</strong>
           </div>
-        </div>
+      @endif
+      <div class="form-group">
+    <label class="col-md-4 control-label" for="fimagenGrupo">
+      <span class="modal-title">Imagen</span>
+    </label>
+    <div class="col-md-4">
+      <div class="row">
+      <label class="input-text" style="font-weight: normal;" for="fimagenGrupo"><p>Clica para insertar una imagen</p>
+      <img id="imgSeleccionada" style="max-width: 100%;"/></label>
+      <input id="fimagenGrupo" style="display: none;" name="imgDenuncia" type="file" accept="image/*">
+      </div>
+    </div>
+  </div>
 
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2994.8677135458884!2d2.0679089505497026!3d41.35522897916542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sca!2ses!4v1516904707294" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+      @if (isset($mensaje) && array_key_exists("image", $mensaje))
+          <div class="alert alert-danger help-block" role="alert">
+              <strong>{{ $mensaje["image"] }}</strong>
+          </div>
+      @endif
 
-        <div class="form-group">
-          <button id="singlebutton" name="singlebutton" class="btn btn-warning"><i class="glyphicon glyphicon-send"></i> Enviar</button>
-        </div>
-        </fieldset>
-    </form>
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textarea">Mensaje</label>
+    <div class="col-md-4">                     
+      <textarea class="form-control" id="textarea" name="mensaje" placeholder="Escriu el teu problema..." required></textarea>
+    </div>
+  </div>
 
-<script>
-    document.getElementById("fimagenGrupo").addEventListener("input", function(){
-        var filename = $("#fimagenGrupo").val()
-        var fileNameIndex = filename.lastIndexOf("/") + 1;
-        if(fileNameIndex == 0)
-            fileNameIndex = filename.lastIndexOf("\\") + 1;
+      @if (isset($mensaje) && array_key_exists("mensaje", $mensaje))
+          <div class="alert alert-danger help-block" role="alert">
+              <strong>{{ $mensaje["mensaje"] }}</strong>
+          </div>
+      @endif
+  <div class="row">
 
-        if(fileNameIndex > 0)
-            filename = filename.substr(fileNameIndex);
+    <div class="col-md-8 col-md-offset-2" id="map"></div>
 
-        $("label[for='fimagenGrupo'] p").text(filename);
-    })
-</script>
+    <input type="hidden" name="coords">
+  </div>
+
+      @if (isset($mensaje) && array_key_exists("mapa", $mensaje))
+          <div class="alert alert-danger help-block" role="alert">
+              <strong>{{ $mensaje["mapa"] }}</strong>
+          </div>
+      @endif
+  <div class="form-group">
+    <button id="singlebutton" name="singlebutton" class="btn btn-warning"><i class="glyphicon glyphicon-send"></i> Enviar</button>
+  </div>
+  </fieldset>
+</form>
 
 @stop

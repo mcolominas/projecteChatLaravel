@@ -9,7 +9,6 @@
 <!-- CSS -->
 <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/main.css') }}" />
-<link rel="stylesheet" href="{{ URL::asset('css/loginModal.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/menu.css') }}" />
 
 <!-- iconos -->
@@ -19,4 +18,3 @@
 <!-- JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/loginModal.js') }}"></script>

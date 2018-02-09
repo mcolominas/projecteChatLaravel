@@ -10,13 +10,13 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       {{-- Lado izquierdo --}}
       <ul class="nav navbar-nav">
-      	{{-- Usuario No Logeado --}}
+        <li class="{{ Request::is('/') ? 'active' : ''}}"><a href="{{url('/')}}">Inicio</a></li>
       	@guest
-        	<li class="{{ Request::is('/') ? 'active' : ''}}"><a href="{{url('/')}}">Home</a></li>
-        {{-- Usuario Logeado --}}
         @else
-	        <li class="{{ Request::is('/') ? 'active' : ''}}"><a href="{{url('/')}}">Chat Room</a></li>
-	        <li class="{{ Request::is('/') ? 'active' : ''}}"><a href="{{url('/')}}">Formulario Denuncia</a></li>
+	        <li class="{{ Request::is('chatroom') ? 'active' : ''}}"><a href="{{url('/chatroom')}}">Chat Room</a></li>
+	        <li class="{{ Request::is('denuncia') ? 'active' : ''}}"><a href="{{url('/denuncia')}}">Denuncia</a></li>
+	        <li class="{{ Request::is('foro') ? 'active' : ''}}"><a href="{{url('/foro')}}">Foro</a></li>
+	        <li class="{{ Request::is('intercanvios') ? 'active' : ''}}"><a href="{{url('/intercanvios')}}">Intercanvios</a></li>
 	    @endguest
       </ul>
 
@@ -24,14 +24,14 @@
       <ul class="nav navbar-nav navbar-right">
       		{{-- Usuario No Logeado --}}
       		@guest
-		        <li><a href="#" data-toggle="modal" data-target="#modalLogin"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión</a></li>
-		        <li class="{{ Request::is('/') ? 'active' : ''}}"><a href="{{url('/')}}"><span class="glyphicon glyphicon-user"></span> Registro</a></li>
+		        <li class="{{ Request::is('login') ? 'active' : ''}}"><a href="{{url('/login')}}"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión</a></li>
+		        <li class="{{ Request::is('register') ? 'active' : ''}}"><a href="{{url('/register')}}"><span class="glyphicon glyphicon-user"></span> Registro</a></li>
        		{{-- Usuario Logeado --}}
        		@else
-				<li class="{{ Request::is('/') ? 'active' : ''}}">
+				<li class="{{ Request::is('/auth/update') ? 'active' : ''}}">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-user"></span>
-						<strong>{{ Auth::user()->username }}</strong>
+						<strong>{{ Auth::user()->name }}</strong>
 						<span class="glyphicon glyphicon-chevron-down"></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -75,48 +75,3 @@
     </div>
   </div>
 </nav>
-
-@guest
-<!-- Menu login modal -->
-<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myModalLabel">Iniciar Sesión</h4>
-      </div> <!-- /.modal-header -->
-
-      <div class="modal-body">
-        <form action="{{url('/')}}" method="post">
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control" id="uLogin" name="username" placeholder="Usuario">
-              <label for="uLogin" class="rojologo input-group-addon glyphicon glyphicon-user"></label>
-            </div>
-          </div> <!-- /.form-group -->
-
-          <div class="form-group">
-            <div class="input-group">
-              <input type="password" class="form-control" id="uPassword" name="password" placeholder="Contraseña">
-              <label for="uPassword" class="rojologo input-group-addon glyphicon glyphicon-lock"></label>
-            </div> <!-- /.input-group -->
-          </div> <!-- /.form-group -->
-
-          <div class="checkbox">
-          	<label for="recordarme">
-          		<input id="recordarme" type="checkbox"> Recordarme
-          	</label>
-          </div> <!-- /.checkbox -->
-        
-
-	      </div> <!-- /.modal-body -->
-
-	      <div class="modal-footer">
-	        <button class="rojologo form-control btn btn-primary">Iniciar Sessión</button>
-	      </div> <!-- /.modal-footer -->
-	    </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
-@endguest

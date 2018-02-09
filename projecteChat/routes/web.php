@@ -11,26 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/index', 'ChatController@getIndex')->name('index');
+Route::get('/', 'ChatController@getIndex');
 
 Route::get('/denuncia', 'ChatController@getDenuncias');
 
-Route::get('/chatroom', 'ChatController@getChatroom')->name('chatroom');
+Route::get('/chatroom', 'ChatController@getChatroom');
 
 Route::put('/denuncia', 'ChatController@putDenuncias');
 
-Route::get('/foro', 'ChatController@getForo')->name('foro');
+Route::get('/foro', 'ChatController@getForo');
 
-Route::get('/intercanvios', 'ChatController@getIntercanvios')->name('intercanvios');
+Route::get('/intercanvios', 'ChatController@getIntercanvios');

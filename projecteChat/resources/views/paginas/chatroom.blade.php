@@ -1,3 +1,7 @@
+@section('head')
+	@parent
+@stop
+
 @section('title')
     Projecte Vota - Inicio
 @stop
@@ -6,6 +10,6 @@
 
 @section('content')
 
-    inivial
+ commin soon
 
 @stop
