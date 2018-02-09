@@ -16,7 +16,7 @@
 
 	<div class="row marginTop">
 	<a href='{{ URL::asset("denuncia/show/$denuncia->id") }}'>
-    	<div class="col-md-3"><img src='{{ URL::asset("$denuncia->imagen") }}' style="width: 100%;"></div>
+    	<div class="col-md-3"><img src='{{ ($denuncia->imagen == NULL) ? URL::asset("/img/imageEmpty.png") : URL::asset("$denuncia->imagen") }}' style="width: 100%;"></div>
     	<div class="col-md-9">{{ substr($denuncia->mensaje, 0 ,150) }}{{ strlen($denuncia->mensaje) > 150 ? "..." : ""}}</div>
     </a>
   	</div>

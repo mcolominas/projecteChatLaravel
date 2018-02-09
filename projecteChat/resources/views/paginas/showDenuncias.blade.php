@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="row marginTop">
-		<div class="col-md-3"><img src='{{ URL::asset("$denuncia->imagen") }}' style="width: 100%;"></div>
+		<div class="col-md-3"><img src='{{ ($denuncia->imagen == NULL) ? URL::asset("/img/imageEmpty.png") : URL::asset("$denuncia->imagen") }}' style="width: 100%;"></div>
     	<div class="col-md-9">{{ $denuncia->mensaje }}</div>
     
     </div>
@@ -44,7 +44,7 @@
 					{{ csrf_field() }}
 					<div class="form-group">
 					  <div class="col-md-offset-3 col-md-6">                     
-					    <textarea class="form-control" id="textarea" name="mensaje" placeholder="Escribe la respuesta..."></textarea>
+					    <textarea class="form-control" id="textarea" name="respuesta" placeholder="Escribe la respuesta..."></textarea>
 					  </div>
 					</div>
 
