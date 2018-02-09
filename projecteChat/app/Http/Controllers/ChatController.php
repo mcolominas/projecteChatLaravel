@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Denuncia;
+use App\MensajesDenuncia;
 use DateTime;
 
 class ChatController extends Controller
@@ -85,13 +86,22 @@ class ChatController extends Controller
 
     }
 
-    public function getShowDenuncia(){
+    public function getShowsDenuncia(){
         if (!Auth::check()) return view('paginas.showDenuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar una denuncia.")));
 
         $idUsuario = Auth::user()->id;
         $consultas = Denuncia::where('id_usuario', '=', $idUsuario)->get();
 
         return view('paginas.showDenuncias', ["denuncias" => $consultas]);
+
+    }
+    public function getShowDenuncia($id){
+        if (!Auth::check()) return view('paginas.showDenuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar ver una denuncia.")));
+
+        $denuncia = Denuncia::where('id', '>', $id)->firstOrFail();
+        $mensajesDenuncia = MensajesDenuncia::where('id_denuncias', '=', $id)->get();
+
+        return view('paginas.showDenuncias', ["denuncia" => $denuncia, "mensajesDenuncia" => $mensajesDenuncia]);
 
     }
 

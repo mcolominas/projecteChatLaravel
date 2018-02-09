@@ -30,6 +30,11 @@
               <strong>{{ $mensaje["user"] }}</strong>
           </div>
       @endif
+      @if (isset($mensaje) && array_key_exists("image", $mensaje))
+          <div class="alert alert-danger help-block" role="alert">
+              <strong>{{ $mensaje["image"] }}</strong>
+          </div>
+      @endif
       <div class="form-group">
     <label class="col-md-4 control-label" for="fimagenGrupo">
       <span class="modal-title">Imagen</span>
@@ -43,12 +48,11 @@
     </div>
   </div>
 
-      @if (isset($mensaje) && array_key_exists("image", $mensaje))
-          <div class="alert alert-danger help-block" role="alert">
-              <strong>{{ $mensaje["image"] }}</strong>
-          </div>
-      @endif
-
+  @if (isset($mensaje) && array_key_exists("mensaje", $mensaje))
+      <div class="alert alert-danger help-block" role="alert">
+          <strong>{{ $mensaje["mensaje"] }}</strong>
+      </div>
+  @endif
   <!-- Textarea -->
   <div class="form-group">
     <label class="col-md-4 control-label" for="textarea">Mensaje</label>
@@ -57,23 +61,16 @@
     </div>
   </div>
 
-      @if (isset($mensaje) && array_key_exists("mensaje", $mensaje))
-          <div class="alert alert-danger help-block" role="alert">
-              <strong>{{ $mensaje["mensaje"] }}</strong>
-          </div>
-      @endif
   <div class="row">
-
+    @if (isset($mensaje) && array_key_exists("mapa", $mensaje))
+        <div class="alert alert-danger help-block" role="alert">
+            <strong>{{ $mensaje["mapa"] }}</strong>
+        </div>
+    @endif
     <div class="col-md-8 col-md-offset-2" id="map"></div>
 
     <input type="hidden" name="coords">
   </div>
-
-      @if (isset($mensaje) && array_key_exists("mapa", $mensaje))
-          <div class="alert alert-danger help-block" role="alert">
-              <strong>{{ $mensaje["mapa"] }}</strong>
-          </div>
-      @endif
   <div class="form-group">
     <button id="singlebutton" name="singlebutton" class="btn btn-warning"><i class="glyphicon glyphicon-send"></i> Enviar</button>
   </div>
