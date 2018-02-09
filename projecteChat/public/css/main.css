@@ -61,3 +61,6 @@ body{
 .no-top{
   top: 0px !important;
 }
+.marginTop{
+  margin-top: 20px;
+}
