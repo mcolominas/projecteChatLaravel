@@ -24,3 +24,6 @@ Route::put('/denuncia', 'ChatController@putDenuncias');
 Route::get('/foro', 'ChatController@getForo');
 
 Route::get('/intercanvios', 'ChatController@getIntercanvios');
+
+Route::get('/denuncia/show', 'ChatController@getShowDenuncia');
+
