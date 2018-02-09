@@ -85,11 +85,11 @@ class ChatController extends Controller
 
     }
 
-    public function getShowDenuncias(){
+    public function getShowDenuncia(){
         if (!Auth::check()) return view('paginas.showDenuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar una denuncia.")));
 
         $idUsuario = Auth::user()->id;
-        $consultas = User::where('idUsuario', '=', idUsuario)->get();
+        $consultas = Denuncia::where('id_usuario', '=', $idUsuario)->get();
 
         return view('paginas.showDenuncias', ["denuncias" => $consultas]);
 
