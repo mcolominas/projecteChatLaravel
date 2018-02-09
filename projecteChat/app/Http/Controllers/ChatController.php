@@ -101,7 +101,7 @@ class ChatController extends Controller
         $denuncia = Denuncia::where('id', '=', $id)->firstOrFail();
         $mensajesDenuncia = MensajesDenuncia::where('id_denuncias', '=', $id)->orderBy('id_denuncias', 'desc')->get();
 
-        return view('paginas.showDenuncias', ["denuncia" => $denuncia, "mensajesDenuncia" => $mensajesDenuncia]);
+        return view('paginas.showDenuncias', ["denuncia" => $denuncia, "mensajesDenuncias" => $mensajesDenuncia]);
     }
     public function putShowDenuncias($id){
         if (!Auth::check()) return view('paginas.showDenuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar ver una denuncia.")));
@@ -115,7 +115,7 @@ class ChatController extends Controller
         $mensajeDenuncia->id_denuncias = $id;
         $mensajeDenuncia->save();
 
-        return view('paginas.showDenuncias', ["denuncia" => $denuncia, "mensajesDenuncias" => $mensajesDenuncia]);
+        getShowDenuncias($id);
     }
 
 }
