@@ -1,6 +1,6 @@
 @section('head')
 	@parent
-<link rel="stylesheet" href="{{ URL::asset('css/denuncias.css') }}" />
+  <link rel="stylesheet" href="{{ URL::asset('css/denuncias.css') }}" />
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDumTwXUkXcIKfgTOcx7uQbEeQDzgGUEI8"></script>
   <script type="text/javascript" src="{{ URL::asset('js/gmaps.min.js') }}"></script>
   <script type="text/javascript" src="{{ URL::asset('js/denuncias.js') }}"></script>

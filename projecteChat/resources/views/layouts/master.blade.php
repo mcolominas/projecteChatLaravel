@@ -23,6 +23,7 @@
           </a>
         </div>
         <div class="well col-sm-12 col-md-8 text-center"> 
+          @include('layouts.breadCrumbs')
           @yield('content')
         </div>
         <div class="col-md-2 hidden-xs hidden-sm banner">

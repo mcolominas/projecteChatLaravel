@@ -17,18 +17,18 @@
     font-size: 87px;
 }
 
-ul:not(.navbar-right) .dropdown-menu{
+.navbar ul:not(.navbar-right) .dropdown-menu{
 	background-color: black;
 }
 
-ul:not(.navbar-right) .dropdown-menu a{
+.navbar ul:not(.navbar-right) .dropdown-menu a{
 	color: #9d9d9d;
 	width: 100%;
 	display: block;
 	padding: 10px 10px;
 	text-decoration: none;
 }
-ul:not(.navbar-right) .dropdown-menu a:hover, .dropdown-menu a:focus, .active{
+.navbar ul:not(.navbar-right) .dropdown-menu a:hover, .navbar .dropdown-menu a:focus,.navbar .active{
 	background-color: #222;
 	color: white;
 }

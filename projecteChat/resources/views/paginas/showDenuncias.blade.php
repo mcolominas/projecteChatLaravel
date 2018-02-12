@@ -1,6 +1,9 @@
 @section('head')
 	@parent
 	<link rel="stylesheet" href="{{ URL::asset('css/denuncias.css') }}" />
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDumTwXUkXcIKfgTOcx7uQbEeQDzgGUEI8"></script>
+  	<script type="text/javascript" src="{{ URL::asset('js/gmaps.min.js') }}"></script>
+  	<script type="text/javascript" src="{{ URL::asset('js/showDenuncias.js') }}"></script>
 @stop
 
 @section('title')
@@ -11,9 +14,6 @@
 @extends('layouts.master')
 
 @section('content')
-
-
-
 	<div class="row text-left">
 	<div class="col-md-offset-1 col-md-10">
 	<div class="row text-center">
@@ -27,21 +27,18 @@
     </div>
 
     <div class="row marginTop">
-    	<div class="col-md-6">{{ $denuncia->coordenadas }}</div>
+    	<div class="col-md-12"><div id="map">{{ $denuncia->coordenadas }}</div></div>
   	</div>
 
 	</div>
 	</div>
 
 	@foreach( $mensajesDenuncias as $mensajesDenuncia )
-
 		<div class="row marginTop">
 			<div class="col-md-offset-1 col-md-10">
 				<span>{{ $mensajesDenuncia->mensaje }}</span>
 			</div>
   		</div>
-
-
 	@endforeach
 
 	<div class="row marginTop">
@@ -66,5 +63,4 @@
 			</div>
 		</div>
 	</div>
-
 @stop
