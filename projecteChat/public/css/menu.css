@@ -16,3 +16,19 @@
 {
     font-size: 87px;
 }
+
+.dropdown-menu{
+	background-color: black;
+}
+
+.dropdown-menu a{
+	color: #9d9d9d;
+	width: 100%;
+	display: block;
+	padding: 10px 10px;
+	text-decoration: none;
+}
+.dropdown-menu a:hover, .dropdown-menu a:focus, .active{
+	background-color: #222;
+	color: white;
+}

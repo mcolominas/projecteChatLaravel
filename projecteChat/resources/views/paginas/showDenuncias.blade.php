@@ -1,10 +1,18 @@
+@section('head')
+	@parent
+	<link rel="stylesheet" href="{{ URL::asset('css/denuncias.css') }}" />
+@stop
+
 @section('title')
     Projecte Vota - Ver mis denuncias
 @stop
 
+
 @extends('layouts.master')
 
 @section('content')
+
+
 
 	<div class="row text-left">
 	<div class="col-md-offset-1 col-md-10">
