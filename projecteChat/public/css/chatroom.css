@@ -440,3 +440,14 @@
 #frame .content .message-input .wrap button:focus {
   outline: none;
 }
+
+#frame .messages .sent .separator{
+  display: block;
+  border-bottom: 1px solid white;
+  text-align: left;
+}
+#frame .messages .replies .separator{
+  display: block;
+  border-bottom: 1px solid red;
+  text-align: right;
+}

@@ -17,18 +17,28 @@
     font-size: 87px;
 }
 
-.dropdown-menu{
+ul:not(.navbar-right) .dropdown-menu{
 	background-color: black;
 }
 
-.dropdown-menu a{
+ul:not(.navbar-right) .dropdown-menu a{
 	color: #9d9d9d;
 	width: 100%;
 	display: block;
 	padding: 10px 10px;
 	text-decoration: none;
 }
-.dropdown-menu a:hover, .dropdown-menu a:focus, .active{
+ul:not(.navbar-right) .dropdown-menu a:hover, .dropdown-menu a:focus, .active{
 	background-color: #222;
 	color: white;
+}
+
+.navbar a:hover{
+	-webkit-animation: tiembla 0.3s infinite;
+}
+@-webkit-keyframes tiembla{
+	0%  { -webkit-transform:rotateZ(-3deg); }
+	50% { -webkit-transform:rotateZ( 0deg) scale(.95); }
+	66%  { -webkit-transform:rotateZ(3deg); }
+	100% { -webkit-transform:rotateZ( 0deg) scale(1); }
 }

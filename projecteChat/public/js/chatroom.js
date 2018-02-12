@@ -50,7 +50,14 @@ function newMessage() {
     if($.trim(message) == '') {
         return false;
     }
-    $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+    var f=new Date();
+
+    var hora=f.getHours();
+    var min=f.getMinutes();
+    if(min < 10) min = "0" + min;
+    hora = hora + ":" + min;
+
+    $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p><span class="separator">Pepito, '+hora+'</span>' + message + '</p></li>').appendTo($('.messages ul'));
     $('.message-input input').val(null);
     $('.contact.active .preview').html('<span>Tú: </span>' + message);
     $(".messages").animate({ scrollTop: $(document).height() }, "fast");

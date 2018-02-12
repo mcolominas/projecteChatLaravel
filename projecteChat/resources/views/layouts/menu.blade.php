@@ -93,3 +93,19 @@
     </div>
   </div>
 </nav>
+
+<script type="text/javascript">
+	$(function(){
+      $('a.dropdown-toggle').click(mostrarDeslizando);
+      $('a.dropdown-toggle').focusout(ocultarDeslizando);
+    });
+
+     function mostrarDeslizando(event){
+         $(this).next().slideDown(400);
+      }
+
+      function ocultarDeslizando(event){
+         $(this).next().slideUp(400);
+      }
+
+</script>
