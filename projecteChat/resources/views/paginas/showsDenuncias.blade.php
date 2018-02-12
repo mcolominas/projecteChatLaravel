@@ -9,7 +9,15 @@
 	<div class="row text-left">
 	<div class="col-md-offset-1 col-md-10">
 	<div class="row text-center">
-		<div class="col-md-12"><legend class="text-center header" id="">MIS DENUNCIAS</legend></div>
+		<div class="col-md-12"><legend class="text-center header" id="">
+		@if (isset($tipo) && $tipo === "user")
+			Mis denuncias
+		@elseif (isset($tipo) && $tipo === "admin")
+			Denuncias disponibles
+		@endif
+		
+
+		</legend></div>
 	</div>
 
 	@foreach( $denuncias as $denuncia )

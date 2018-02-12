@@ -88,9 +88,20 @@ class ChatController extends Controller
         if (!Auth::check()) return view('paginas.showDenuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar una denuncia.")));
 
         $idUsuario = Auth::user()->id;
-        $consultas = Denuncia::where('id_usuario', '=', $idUsuario)->get();
-
-        return view('paginas.showsDenuncias', ["denuncias" => $consultas]);
+        $idPermisos = Auth::user()->id_permisos;
+        switch ($idPermisos) {
+            case 1:
+                    $consultas = Denuncia::where('id_usuario', '=', $idUsuario)->get();
+                    return view('paginas.showsDenuncias', ["denuncias" => $consultas, "tipo" => "user"]);
+                break;
+            
+            case 2:
+                    $consultas = Denuncia::all();
+                    return view('paginas.showsDenuncias', ["denuncias" => $consultas, "tipo" => "admin"]);
+                break;
+            default:
+                return view('paginas.showsDenuncias');
+        }
 
     }
     public function getShowDenuncias($id){
@@ -114,11 +125,7 @@ class ChatController extends Controller
         $mensajeDenuncia->id_denuncias = $id;
         $mensajeDenuncia->save();
 
-        $denuncia = Denuncia::where('id', '=', $id)->firstOrFail();
-        $mensajesDenuncia = MensajesDenuncia::where('id_denuncias', '=', $id)->get();
-
-
-        return view('paginas.showDenuncias', ["denuncia" => $denuncia, "mensajesDenuncias" => $mensajesDenuncia]);
+        return redirect()->action('ChatController@getShowDenuncias', [$id]);
     }
 
 }
