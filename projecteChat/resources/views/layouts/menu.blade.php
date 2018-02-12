@@ -14,7 +14,7 @@
       	@guest
         @else
 	        <li class="{{ Request::is('chatroom') ? 'active' : ''}}"><a href="{{url('/chatroom')}}">Chat Room</a></li>
-	        <li class="{{ Request::is('denuncia') ? 'active' : Request::is('denuncia/show') ? 'active' : ''}}">
+	        <li class="{{ Request::is('denuncia') ? 'active' : Request::is('denuncia/show*') ? 'active' : ''}}">
 
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			    Denuncia <span class="glyphicon glyphicon-chevron-down"></span>
