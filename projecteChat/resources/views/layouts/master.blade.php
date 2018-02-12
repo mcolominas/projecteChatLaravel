@@ -17,12 +17,18 @@
     
     <div class="container-fluid">    
       <div class="row content">
-        <div class="col-sm-2">
+        <div class="col-md-2 hidden-xs hidden-sm banner">
+          <a href="https://www.google.es/" target="_black">
+            <img src="{{ URL::asset('img/banner/Banner.jpg') }}" />
+          </a>
         </div>
-        <div class="well col-sm-8 text-center"> 
+        <div class="well col-sm-12 col-md-8 text-center"> 
           @yield('content')
         </div>
-        <div class="col-sm-2">
+        <div class="col-md-2 hidden-xs hidden-sm banner">
+          <a href="https://www.dasani.com/" target="_black">
+            <img src="{{ URL::asset('img/banner/Banner2.jpg') }}" />
+          </a>
         </div>
       </div>
     </div>

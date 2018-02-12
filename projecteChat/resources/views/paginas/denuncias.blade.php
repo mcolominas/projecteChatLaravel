@@ -19,7 +19,6 @@
 {{ csrf_field() }}
   <fieldset>
       <legend class="text-center header" id="denunciar">DENUNCIAR</legend>
-
       @if (isset($mensaje) && array_key_exists("success", $mensaje))
           <div class="alert alert-success help-block" role="alert">
               <strong>{{ $mensaje["success"] }}</strong>
@@ -61,12 +60,12 @@
     </div>
   </div>
 
+  @if (isset($mensaje) && array_key_exists("mapa", $mensaje))
+      <div class="alert alert-danger help-block" role="alert">
+          <strong>{{ $mensaje["mapa"] }}</strong>
+      </div>
+  @endif
   <div class="row">
-    @if (isset($mensaje) && array_key_exists("mapa", $mensaje))
-        <div class="alert alert-danger help-block" role="alert">
-            <strong>{{ $mensaje["mapa"] }}</strong>
-        </div>
-    @endif
     <div class="col-md-8 col-md-offset-2" id="map"></div>
 
     <input type="hidden" name="coords">

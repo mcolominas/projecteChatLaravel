@@ -30,8 +30,6 @@ class ChatController extends Controller
         if (!Auth::check()) return view('paginas.denuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar una denuncia.")));
 
         //Variables
-        $mensaje = [];
-
         $destinationPathImg = "img/denuncias";
         $idUsuario = Auth::user()->id;
         $imgDenuncia = $request->file('imgDenuncia');
@@ -49,12 +47,12 @@ class ChatController extends Controller
                        break;
                    
                    default:
-                        $mensaje[] = ["image" => "Solo se aceptan las extenciones: png, jpg, jpeg."];
+                        $mensaje["image"] = "Solo se aceptan las extenciones: png, jpg, jpeg.";
             }
         }
-        if(!isset($descripcion)) $mensaje[] = ["mensaje" => "El mensaje no puede estar vacio."];        
-        if(!isset($coordenadas)) $mensaje[] = ["mapa" => "Selecciona un punto en el mapa."];
-        if(!isset($mensaje)) return view('paginas.denuncias', ["mensaje" => $mensaje]);
+        if(!isset($descripcion)) $mensaje["mensaje"] = "El mensaje no puede estar vacio.";
+        if(!isset($coordenadas)) $mensaje["mapa"] = "Selecciona un punto en el mapa.";
+        if(isset($mensaje)) return view('paginas.denuncias', ["mensaje" => $mensaje]);
 
         //Almacenar imagen
         if(isset($imgDenuncia)){
