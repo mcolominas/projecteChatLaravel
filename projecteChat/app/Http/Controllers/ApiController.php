@@ -7,7 +7,7 @@ use App\Denuncia;
 
 class ApiController extends Controller
 {
-    function getChat(){
+    function getChatPublico(){
     	$obj = Denuncia::all();
     	return response(json_encode($obj), 200)->header('Content-Type', 'application/json');
     }
