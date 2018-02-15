@@ -28,6 +28,7 @@ Route::get('/intercanvios', 'ChatController@getIntercanvios');
 Route::get('/denuncia/show', 'ChatController@getShowsDenuncia');
 
 Route::get('/denuncia/show/{id}', 'ChatController@getShowDenuncias')->where('id','[0-9]+');
+
 Route::put('/denuncia/show/{id}', 'ChatController@putShowDenuncias')->where('id','[0-9]+');
 
 Route::get('/api/getChat', 'ApiController@getChat');
