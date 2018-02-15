@@ -17,7 +17,7 @@ class Tablas extends Migration
         {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('imagen')->nullable()->default(null);;
+            $table->string('imagen')->nullable()->default(null);
             $table->timestamps();
         });
 
@@ -41,7 +41,7 @@ class Tablas extends Migration
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
             $table->string('nombre');
-            $table->string('imagen')->nullable()->default(null);;
+            $table->string('imagen')->nullable()->default(null);
             $table->timestamps();
 
             $table->index('id_usuario');
@@ -83,7 +83,7 @@ class Tablas extends Migration
         {
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
-            $table->string('imagen')->nullable()->default(null);;
+            $table->string('imagen')->nullable()->default(null);
             $table->text('mensaje');
             $table->string('coordenadas');
             $table->boolean('revisado')->default('0');
