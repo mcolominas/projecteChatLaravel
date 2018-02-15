@@ -33,4 +33,8 @@ Route::put('/denuncia/show/{id}', 'ChatController@putShowDenuncias')->where('id'
 
 Route::get('/noticias', 'ChatController@getNoticias');
 
+Route::get('/noticias/add', 'ChatController@getAddNoticias');
+
+Route::put('/noticias/add', 'ChatController@putAddNoticias');
+
 Route::get('/api/getChat', 'ApiController@getChat');
