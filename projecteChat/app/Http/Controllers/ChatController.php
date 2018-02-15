@@ -128,4 +128,8 @@ class ChatController extends Controller
         return redirect()->action('ChatController@getShowDenuncias', [$id]);
     }
 
+    public function getNoticias(){
+        return view('paginas.noticias');
+    }
+
 }

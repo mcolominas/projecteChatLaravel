@@ -36,6 +36,7 @@
 	        <li class="{{ Request::is('foro') ? 'active' : ''}}"><a href="{{url('/foro')}}">Foro</a></li>
 	        <li class="{{ Request::is('intercanvios') ? 'active' : ''}}"><a href="{{url('/intercanvios')}}">Intercanvios</a></li>
 	    @endguest
+	    <li class="{{ Request::is('noticias') ? 'active' : ''}}"><a href="{{url('/noticias')}}">Noticias</a></li>
       </ul>
 
       {{-- Lado derecho --}}
