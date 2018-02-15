@@ -23,6 +23,11 @@
 		<li class="active">Foro</li>
 	@elseif (Request::is('intercanvios'))
 		<li class="active">Intercanvios</li>
+	@elseif (Request::is('login'))
+		<li class="active">Iniciar sesion</li>
+	@elseif (Request::is('register'))
+		<li class="active">Registro</li>	
 	@endif
+
 </ul>
 
