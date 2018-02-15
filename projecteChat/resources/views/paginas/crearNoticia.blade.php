@@ -10,6 +10,6 @@
 
 @section('content')
 
- commin soon
+
 
 @stop

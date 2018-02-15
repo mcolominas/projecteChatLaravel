@@ -26,7 +26,11 @@
 	@elseif (Request::is('login'))
 		<li class="active">Iniciar sesion</li>
 	@elseif (Request::is('register'))
-		<li class="active">Registro</li>	
+		<li class="active">Registro</li>
+	@elseif (Request::is('noticias'))
+		<li class="active">Noticias</li>
+	@elseif (Request::is('noticias/add'))
+		<li class="active">Crear noticias</li>
 	@endif
 
 </ul>

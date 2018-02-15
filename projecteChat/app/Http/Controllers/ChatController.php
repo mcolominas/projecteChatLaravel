@@ -132,4 +132,12 @@ class ChatController extends Controller
         return view('paginas.noticias');
     }
 
+    public function getAddNoticias(){
+        return view('paginas.crearNoticia');
+    }
+
+    public function putAddNoticias(){
+        return redirect()->action('ChatController@getNoticias');
+    }
+
 }

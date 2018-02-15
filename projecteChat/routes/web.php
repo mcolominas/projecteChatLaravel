@@ -33,4 +33,10 @@ Route::put('/denuncia/show/{id}', 'ChatController@putShowDenuncias')->where('id'
 
 Route::get('/noticias', 'ChatController@getNoticias');
 
-Route::get('/api/getChat/{id}', 'ApiController@getChat')->where('id','[0-9]+');
+Route::get('/api/public/getChats', 'ApiController@getChatPublico');
+Route::get('/api/private/getChats/{id}', 'ApiController@getChatPrivado')->where('id','[0-9]+');
+Route::get('/api/public/getMensajes/{id}', 'ApiController@getMensajesPublico')->where('id','[0-9]+');
+
+Route::get('/noticias/add', 'ChatController@getAddNoticias');
+
+Route::put('/noticias/add', 'ChatController@putAddNoticias');
