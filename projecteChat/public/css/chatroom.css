@@ -30,6 +30,11 @@
   overflow: hidden;
   position: relative;
 }
+#frame #sidepanel a, #frame #sidepanel:hover a, #frame #sidepanel:focus a{
+  color: #f5f5f5;
+  text-decoration: none;
+
+}
 @media screen and (max-width: 735px) {
   #frame #sidepanel {
     width: 65px;

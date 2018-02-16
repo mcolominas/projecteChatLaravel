@@ -15,21 +15,21 @@ Auth::routes();
 
 Route::get('/', 'HomeController@getIndex');
 
-Route::get('/denuncia', 'DenunciaController@getDenuncias');
-Route::put('/denuncia', 'DenunciaController@putDenuncias');
-Route::get('/denuncia/show', 'DenunciaController@getShowsDenuncia');
-Route::get('/denuncia/show/{id}', 'DenunciaController@getShowDenuncias')->where('id','[0-9]+');
-Route::put('/denuncia/show/{id}', 'DenunciaController@putShowDenuncias')->where('id','[0-9]+');
+Route::get('/denuncia', 'DenunciaController@getDenuncias')->middleware('auth');
+Route::put('/denuncia', 'DenunciaController@putDenuncias')->middleware('auth');
+Route::get('/denuncia/show', 'DenunciaController@getShowsDenuncia')->middleware('auth');
+Route::get('/denuncia/show/{id}', 'DenunciaController@getShowDenuncias')->where('id','[0-9]+')->middleware('auth');
+Route::put('/denuncia/show/{id}', 'DenunciaController@putShowDenuncias')->where('id','[0-9]+')->middleware('auth');
 
-Route::get('/chatroom', 'ChatController@getChatroom');
+Route::get('/chatroom', 'ChatController@getChatroom')->middleware('auth');
 
-Route::get('/foro', 'ForoController@getForo');
+Route::get('/foro', 'ForoController@getForo')->middleware('auth');
 
-Route::get('/intercanvios', 'IntercanviosController@getIntercanvios');
+Route::get('/intercanvios', 'IntercanviosController@getIntercanvios')->middleware('auth');
 
 Route::get('/noticias', 'NoticiasController@getNoticias');
-Route::get('/noticias/add', 'NoticiasController@getAddNoticias');
-Route::put('/noticias/add', 'NoticiasController@putAddNoticias');
+Route::get('/noticias/add', 'NoticiasController@getAddNoticias')->middleware('auth');
+Route::put('/noticias/add', 'NoticiasController@putAddNoticias')->middleware('auth');
 
 Route::get('/api/public/getChats', 'ApiController@getChatPublico');
 Route::get('/api/private/getChats/{id}', 'ApiController@getChatPrivado')->where('id','[0-9]+');
