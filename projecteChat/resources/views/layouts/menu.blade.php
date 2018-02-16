@@ -13,23 +13,28 @@
         <li class="{{ Request::is('/') ? 'active' : ''}}"><a href="{{url('/')}}">Inicio</a></li>
       	@guest
         @else
+        	@if ( Auth::user()->id_permisos == 2 )
 	        <li class="{{ Request::is('chatroom') ? 'active' : ''}}"><a href="{{url('/chatroom')}}">Chat Room</a></li>
+	        @endif
 	        <li class="{{ Request::is('denuncia') ? 'active' : Request::is('denuncia/show*') ? 'active' : ''}}">
-
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			    Denuncia <span class="glyphicon glyphicon-chevron-down"></span>
 			  </a>
 			  <ul class="dropdown-menu">
+			  @if ( Auth::user()->id_permisos == 1 )
 			  <div class="row">
 			  <div class="col-md-12">
-			  <a class="dropdown-toggle {{ Request::is('denuncia') ? 'active' : ''}}" href="{{url('/denuncia')}}">Crear deuncias</a>
+			  <a class="dropdown-toggle {{ Request::is('denuncia') ? 'active' : ''}}" href="{{url('/denuncia')}}">Crear denuncias</a>
 			  </div>
 			  </div>
+			  @endif
+			  @if ( Auth::user()->id_permisos == 2 )
 			  <div class="row">
 			  <div class="col-md-12">
 			  <a class="dropdown-toggle {{ Request::is('denuncia/show') ? 'active' : ''}}" href="{{url('/denuncia/show')}}">Ver denuncias</a>
 			  </div>
 			  </div>
+			  @endif
 			  </ul>
 
 	        </li>
