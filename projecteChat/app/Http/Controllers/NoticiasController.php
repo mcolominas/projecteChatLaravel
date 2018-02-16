@@ -9,8 +9,11 @@ use DateTime;
 
 class NoticiasController extends Controller
 {
-    public function getNoticias(){
-        return view('paginas.noticias');
+    public function getNoticias(){        
+        $consultas = Noticia::orderBy('created_at', 'desc')->get();
+
+        return view('paginas.noticias', ["noticias" => $consultas]);
+
     }
 
     public function getAddNoticias(){
