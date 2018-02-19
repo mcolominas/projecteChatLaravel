@@ -40,6 +40,7 @@
                     <div class="contact-profile">
                         <img src="{{ $imagen }}" alt="" />
                         <p>{{ $username }}</p>
+                        <p style="display: none;">{{ $userId }}</p>
                         <div class="setting">
                              <a href="#" data-toggle="modal" data-target="#linkInvitarModal" style="color:red;"><i class="fa fa-link fa-lg fa-fw" aria-hidden="true"></i></a>
                         </div>

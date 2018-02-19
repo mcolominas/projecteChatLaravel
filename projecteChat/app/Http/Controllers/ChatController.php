@@ -15,7 +15,8 @@ class ChatController extends Controller
     		$imagen = "img/imageEmpty.png";
     	}
     	$userName = Auth::user()->name;
+    	$userId = Auth::user()->id;
 
-    	return view('paginas.chatroom', ["imagen" => $imagen, "username" => $userName]);
+    	return view('paginas.chatroom', ["imagen" => $imagen, "username" => $userName, "userId" => $userId]);
     }
 }
