@@ -34,5 +34,5 @@ Route::put('/noticias/add', 'NoticiasController@putAddNoticias')->middleware('au
 Route::get('/api/public/getChats', 'ApiController@getChatPublico');
 Route::get('/api/private/getChats/{id}', 'ApiController@getChatPrivado')->where('id','[0-9]+');
 Route::get('/api/public/getMensajes', 'ApiController@getMensajesPublico');
-
+Route::get('/api/public/setMensajes', 'ApiController@setMensajesPublico');
 

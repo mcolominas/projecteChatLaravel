@@ -9,6 +9,13 @@ use DateTime;
 class ChatController extends Controller
 {
     public function getChatroom(){
-    	return view('paginas.chatroom');
+
+    	$imagen = Auth::user()->imagen;
+    	if (!isset($imagen)){
+    		$imagen = "img/imageEmpty.png";
+    	}
+    	$userName = Auth::user()->name;
+
+    	return view('paginas.chatroom', ["imagen" => $imagen, "username" => $userName]);
     }
 }

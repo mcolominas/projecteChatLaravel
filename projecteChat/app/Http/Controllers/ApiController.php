@@ -43,4 +43,18 @@ class ApiController extends Controller
     function getChatPrivado($id){
     	return $id;
     }
+
+    function setMensajesPublico(Request $request){
+        $idSala = $request->input('idSala');
+        $idUsuario = $request->input('idUsuario');
+        $mensaje = $request->input('mensaje');
+
+        $chat = new MensajesPublico();
+        $chat->id_chat_publico = $idSala;
+        $chat->id_usuario = $idUsuario;
+        $chat->mensaje = $mensaje;
+
+        $chat->save();
+
+    }
 }
