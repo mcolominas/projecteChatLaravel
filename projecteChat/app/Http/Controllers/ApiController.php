@@ -24,7 +24,7 @@ class ApiController extends Controller
 			    ->join('mensajes_publicos as msj',function($join){
 			        $join->on('msj.id_usuario','=','usr.id');
 			    })    
-			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario")
+			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario", "id_chat_publico as idSala")
     			->where([['msj.created_at','>=',$data],['msj.id_chat_publico','=',$id]])
                 ->orderby('msj.created_at', 'asc')
 			    ->get();
@@ -35,7 +35,7 @@ class ApiController extends Controller
 			        $join->on('msj.id_usuario','=','usr.id');
 			    })
 			    ->where('msj.id_chat_publico','=',$id)
-			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario")
+			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario","id_chat_publico as idSala")
                 ->orderby('msj.created_at', 'asc')
                 ->take(20)->get();
 		}
@@ -61,4 +61,20 @@ class ApiController extends Controller
 
     }
 
+    function getLastMensajes(Request $request){
+        $idSala = $request->input('idSala');
+        $idMensaje = $request->input('idMensaje');
+
+        $consulta = MensajesPublico::from('users as usr')
+                  ->join('mensajes_publicos as msj',function($join){
+                    $join->on('msj.id_usuario','=','usr.id');
+                })    
+                  ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario","id_chat_publico as idSala")
+                  ->where([['id','>',$idMensaje],['id_chat_publico','=',$idSala]])
+                  ->orderby('msj.created_at', 'asc')
+                  ->get();
+
+       return response(json_encode($consulta), 200)->header('Content-Type', 'application/json');
+
+    }
 }
