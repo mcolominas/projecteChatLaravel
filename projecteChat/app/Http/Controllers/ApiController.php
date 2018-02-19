@@ -24,17 +24,20 @@ class ApiController extends Controller
 			    ->join('mensajes_publicos as msj',function($join){
 			        $join->on('msj.id_usuario','=','usr.id');
 			    })    
-			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado")
+			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario")
     			->where([['msj.created_at','>=',$data],['msj.id_chat_publico','=',$id]])
+                ->orderby('msj.created_at', 'asc')
 			    ->get();
-			    
+	    
 		if($msj->count() == 0){
 			$msj = MensajesPublico::from('users as usr')
 			    ->join('mensajes_publicos as msj',function($join){
 			        $join->on('msj.id_usuario','=','usr.id');
 			    })
 			    ->where('msj.id_chat_publico','=',$id)
-			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado")->take(20)->get();
+			    ->select("name as username", "imagen", "mensaje", "msj.created_at as enviado", "id_usuario as idUsuario")
+                ->orderby('msj.created_at', 'asc')
+                ->take(20)->get();
 		}
 
     	return response(json_encode($msj), 200)->header('Content-Type', 'application/json');
@@ -57,4 +60,5 @@ class ApiController extends Controller
         $chat->save();
 
     }
+
 }
