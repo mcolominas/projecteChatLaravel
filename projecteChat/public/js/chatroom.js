@@ -1,3 +1,4 @@
+var username = "";
 //recibe 5 paramrtros, uno la url a la que se conecta, el otro el metodo, el otro un array con los parametros,
 //en caso de ninguno se pone null y 2 funcionas, una para cuando esta descargando los datos del servidor, 
 //y la otra cuando ya ha recibido los datos, recibe un parametro con los datos del servidor
@@ -19,9 +20,17 @@ function ajax(url, method, params, loading, respuesta){
         });
 }
 
+function getImage(img){
+    if(img === null){
+        return '<img src="http://127.0.0.1:8000/img/imageEmpty.png" alt="" />';
+    }else{
+        return '<img src="'+ img +'" alt="" />';
+    }
+}
+
 function getStringChat(idSala, img, nombre){
     return '<a data-toggle="tab" href="#linkp'+idSala+'">'+
-                '<li class="contact" id="p'+ idSala +'">'+
+                '<li class="contact">'+
                     '<div class="wrap">'+ 
                         getImage(img) +
                         '<div class="meta">'+
@@ -35,7 +44,7 @@ function getStringChat(idSala, img, nombre){
 
 function getStringMensaje(idSala){
     return '<div id="linkp'+idSala+'" class="tab-pane fade">'+
-                '<ul>'+idSala+
+                '<ul>'+
                 '</ul>'+
             '</div>';
 }
@@ -57,14 +66,53 @@ function getMensajesPublico(idSala){
     if ( $("#linkp"+idSala).length == 0 ) {
         $('#frame .messages:eq(0)').append(getStringMensaje(idSala));
     }
-    ajax("http://127.0.0.1:8000/api/public/getMensajes", "get", ["idSala" => idSala], function(){}, function(res){
-        console.log(res);
+
+    ajax("http://127.0.0.1:8000/api/public/getMensajes", "get", {"idSala": idSala}, function(){}, function(res){
+        for (var i = 0; i < res.length ; i++) {
+            mensajeRecibido(idSala, res[i].username, res[i].enviado, res[i].imagen, res[i].mensaje);
+        }
     });
 }
 
+function newMessage() {
+    message = $(".message-input input").val();
+    if($.trim(message) == '') {
+        return false;
+    }
+    var f=new Date();
 
+    var hora=f.getHours();
+    var min=f.getMinutes();
+    if(min < 10) min = "0" + min;
+    hora = hora + ":" +  min;
+
+    var idSala = $('#test').attr('id');
+
+    $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p><span class="separator">'+username+', '+hora+'</span>' + message + '</p></li>').appendTo($('.messages .active ul'));
+    $('.message-input input').val(null);
+    $('a[href$=linkp'+idSala+'] .preview').html('<span>Tú: </span>' + message);
+};
+
+function mensajeRecibido(idSala, nombre, date, imagen, mensaje) {
+    if($.trim(mensaje) == '') {
+        return false;
+    }
+    
+    $("#linkp"+idSala+" ul:eq(0)").append('<li class="replies">'+
+                                                getImage(imagen)+
+                                                '<p>'+
+                                                    '<span class="separator">'+
+                                                        nombre+', '+date+
+                                                    '</span>'+ 
+                                                    mensaje + 
+                                                '</p>'+
+                                            '</li>');
+    
+    $('a[href$=linkp'+idSala+'] .preview').html('<span>'+nombre+': </span>' + mensaje);
+};
 
 $(function() {
+    username = $("nav .navbar-right:eq(0) .dropdown-toggle strong").text();
     getChats();
 
     $('.submit').click(function() {
@@ -78,48 +126,3 @@ $(function() {
       }
     }); 
 });
-
-function newMessage() {
-    message = $(".message-input input").val();
-    if($.trim(message) == '') {
-        return false;
-    }
-    var f=new Date();
-
-    var hora=f.getHours();
-    var min=f.getMinutes();
-    if(min < 10) min = "0" + min;
-    hora = hora + ":" + min;
-
-    var idSala = $('#test').attr('id');
-
-    $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p><span class="separator">Pepito, '+hora+'</span>' + message + '</p></li>').appendTo($('.messages ul'));
-    $('.message-input input').val(null);
-    $('.contact.active .preview').html('<span>Tú: </span>' + message);
-    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-};
-
-function setMessage(idSala, nombre, date, imagen, mensaje) {
-    if($.trim(message) == '') {
-        return false;
-    }
-    var salaChat = $("#linkp"+idSala);
-    if ( salaChat.length > 0 ) {
-        alert("A")
-        //$('<li class="replies"><img src="'+getImage(imagen)+'" alt="" /><p><span class="separator">'+nombre+', '+date+'</span>' + message + '</p></li>').appendTo($(''));
-    }else{
-        alert("A")
-        $('.messages').eq(0).append(getStringMensaje());
-        $("#linkp"+idSala).append('<li class="replies"><img src="'+getImage(imagen)+'" alt="" /><p><span class="separator">'+nombre+', '+date+'</span>' + message + '</p></li>');
-    }
-    
-    $('.contact.active .preview').html('<span>nombre: </span>' + message);
-    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-};
-function getImage(img){
-    if(img === null){
-        return '<img src="http://127.0.0.1:8000/img/imageEmpty.png" alt="" />';
-    }else{
-        return '<img src="'+ img +'" alt="" />';
-    }
-}
