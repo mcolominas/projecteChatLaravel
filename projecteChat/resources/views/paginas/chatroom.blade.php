@@ -38,8 +38,8 @@
                 </div>
                 <div class="content">
                     <div class="contact-profile">
-                        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                        <p>Harvey Specter</p>
+                        <img src="{{ $imagen }}" alt="" />
+                        <p>{{ $username }}</p>
                         <div class="setting">
                              <a href="#" data-toggle="modal" data-target="#linkInvitarModal" style="color:red;"><i class="fa fa-link fa-lg fa-fw" aria-hidden="true"></i></a>
                         </div>
