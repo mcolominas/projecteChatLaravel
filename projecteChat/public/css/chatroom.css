@@ -123,12 +123,9 @@
 #frame #sidepanel #contacts ul li.contact:hover {
   background: #ff1f1f;
 }
-#frame #sidepanel #contacts ul li.contact.active {
+#frame #sidepanel #contacts .activado li {
   background: #ff1f1f;
   border-right: 5px solid #ff3f3f;
-}
-#frame #sidepanel #contacts ul li.contact.active span.contact-status {
-  border: 2px solid #ff1f1f !important;
 }
 #frame #sidepanel #contacts ul li.contact .wrap, #frame #sidepanel #contacts ul li.separator .wrap {
   width: 88%;
