@@ -11,7 +11,7 @@ class NoticiasController extends Controller
 {
     public function getNoticias(){        
         $consultas = Noticia::orderBy('created_at', 'desc')->get();
-        $categorias = Noticia::select("categoria")
+        $categorias = Noticia::select("categoria as nombre")
                     -> groupBy('categoria')
                     -> orderBy('categoria', 'desc')
                     -> get();
@@ -25,12 +25,13 @@ class NoticiasController extends Controller
         $consultas = Noticia::where("categoria","=", $categoria)
                      -> orderBy('created_at', 'desc')
                      -> get();
-        $categorias = Noticia::select("categoria")
+        $categorias = Noticia::select("categoria as nombre")
+                    -> where("categoria","!=", $categoria)
                     -> groupBy('categoria')
                     -> orderBy('categoria', 'desc')
                     -> get();
 
-        return view('paginas.noticias', ["noticias" => $consultas, "categorias" => $categorias]);
+        return view('paginas.noticias', ["noticias" => $consultas, "categorias" => $categorias, "categoriaActual" => ucfirst($categoria)]);
     }
 
     public function getAddNoticias(){

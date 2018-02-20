@@ -11,6 +11,21 @@
 
 @section('content')
 
+<div class="dropdown text-left">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{ isset($categoriaActual) ? $categoriaActual: "Sin categoria"  }}
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+    @if(isset($categoriaActual))
+        <li><a href='{{url("/noticias")}}'>Sin categoria</a></li>
+    @endif
+    
+        @foreach( $categorias as $categoria )            
+            <li><a href='{{url("/noticias/categoria/$categoria->nombre")}}'>{{$categoria->nombre}}</a></li>
+            
+        @endforeach
+    </ul>
+  </div>
+
 <div class="row text-left">
 	<div class="col-md-offset-1 col-md-10">
 	<div class="row text-center">

@@ -39,6 +39,29 @@ function crearElementos(){
           div3.append(div4);
           div4.append(textarea);
 
+          /*Creacion del primer div, que hay un titulo i un input*/
+          var div = $("<div class='form-group'>");
+          var label = $("<label class='col-md-4 control-label' for='categoria'>");
+          var input = $("<input  class='form-control' id='categoria' type='input' name='categoria' required>");
+          var div2 = $("<div class='col-md-4'>");
+
+          label.text("Categoria");
+          $('.content form fieldset').append(div);
+          div.append(label);
+          div.append(div2);
+          div2.append(input);
+
+          var importante = $('<div class="form-group">'+
+                             '<label class="col-md-4 control-label" for="importante">Importante</label>'+
+                             '<div class="col-md-4 text-left">'+
+                             '<input name="importante" id="importante" value="1" type="checkbox">'+ 
+                             '</div>'+
+                             '</div>');
+          
+
+          $('.content form fieldset').append(importante);
+          importante.add(div2);
+
           /*Creacion del tecer div, que hay una imagen i un input*/
           var div5 = $("<div class='form-group'>");
           var label = $("<label class='col-md-4 control-label' for='fimagenGrupo'>");
