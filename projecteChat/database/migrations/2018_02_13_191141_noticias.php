@@ -18,6 +18,7 @@ class Noticias extends Migration
             $table->increments('id');
             $table->string('titulo');
             $table->text('mensaje');
+            $table->string('categoria');
             $table->string('imagen')->nullable()->default(null);
             $table->boolean('importante')->default('0');
             $table->timestamps();
