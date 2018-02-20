@@ -21,7 +21,7 @@ function ajax(url, method, params, loading, respuesta){
 
 function getImage(img){
     if(img === null){
-        return '<img src="http://127.0.0.1:8000/img/imageEmpty.png" alt="" />';
+        return '<img src="img/imageEmpty.png" alt="" />';
     }else{
         return '<img src="'+ img +'" alt="" />';
     }
@@ -59,26 +59,38 @@ function getStringMensaje(idSala){
 }
 
 function getChats(){
-    ajax("http://127.0.0.1:8000/api/public/getChats", "get", null, function(){}, function(res){
+    ajax("api/public/getChats", "get", null, function(){}, function(res){
         for (var i = 0; i < res.length ; i++) {
             $('#contacts .separator:eq(1)').before($(getStringChat(res[i].id, res[i].imagen, res[i].nombre)).click(function(){
                 $("#contacts .activado").removeClass( "activado" );
                 $(this).addClass( "activado" );
             }));
-            
-            getMensajesPublico(res[i].id);
+            primeraConexionChatPublicos(res[i].id);
+            setInterval(getLastMensajesPublicos, 2000, res[i].id);
         }
     });
 }
 
-function getMensajesPublico(idSala){
+function getLastMensajesPublicos(idSala){
+    var idLastMensaje = $("#linkp"+idSala+" li").last().attr("idMensaje");
+    if(idLastMensaje == null) idLastMensaje = 1;
+    
+    var idUsuario = getUserId();
+    ajax("api/public/getLastMensajes", "get", {"idSala": idSala, "idMensaje": idLastMensaje}, function(){}, function(res){
+        for (var i = 0; i < res.length ; i++) {
+            mensajeRecibido(idSala, res[i].username, res[i].enviado, res[i].imagen, res[i].mensaje, res[i].idMensaje, idUsuario == res[i].idUsuario);
+        }
+    });
+}
+
+function primeraConexionChatPublicos(idSala){
     if ( $("#linkp"+idSala).length == 0 ) {
         $('#frame .messages:eq(0)').append(getStringMensaje(idSala));
     }
     var idUsuario = getUserId();
-    ajax("http://127.0.0.1:8000/api/public/getMensajes", "get", {"idSala": idSala}, function(){}, function(res){
+    ajax("api/public/getMensajes", "get", {"idSala": idSala}, function(){}, function(res){
         for (var i = 0; i < res.length ; i++) {
-            mensajeRecibido(idSala, res[i].username, res[i].enviado, res[i].imagen, res[i].mensaje, idUsuario == res[i].idUsuario);
+            mensajeRecibido(idSala, res[i].username, res[i].enviado, res[i].imagen, res[i].mensaje, res[i].idMensaje, idUsuario == res[i].idUsuario);
         }
     });
 }
@@ -97,27 +109,26 @@ function newMessage() {
     var min=f.getMinutes();
     if(min < 10) min = "0" + min;
     hora = hora + ":" +  min;
-
-
-    $('<li class="sent"><img src="'+ getimageUser() +'" alt="" /><p><span class="separator">'+username+', '+hora+'</span>' + mensaje + '</p></li>').appendTo($('.messages .active ul'));
-    $('.message-input input').val(null);
-    $('a[href$=linkp'+idSala+'] .preview').html('<span>Tú: </span>' + mensaje);
     
-    ajax("http://127.0.0.1:8000/api/public/setMensajes", "get", {"idSala" : idSala, "idUsuario" : getUserId(), "mensaje" : mensaje}, function(){}, function(){});
+    ajax("api/public/setMensajes", "get", {"idSala" : idSala, "idUsuario" : getUserId(), "mensaje" : mensaje}, function(){}, function(res){
+        $('<li idMensaje="'+res.idMensaje+'" class="sent"><img src="'+ getimageUser() +'" alt="" /><p><span class="separator">'+username+', '+hora+'</span>' + mensaje + '</p></li>').appendTo($('.messages .active ul'));
+        $('.message-input input').val(null);
+        $('a[href$=linkp'+idSala+'] .preview').html('<span>Tú: </span>' + mensaje);
+    });
 
 
 };
 
-function mensajeRecibido(idSala, nombre, date, imagen, mensaje, enviado=false) {
+function mensajeRecibido(idSala, nombre, date, imagen, mensaje, idMensaje, enviado=false) {
     if($.trim(mensaje) == '') {
         return false;
     }
     if(enviado){
-        $('<li class="sent"><img src="'+ getimageUser() +'" alt="" /><p><span class="separator">'+nombre+', '+date+'</span>' + mensaje + '</p></li>').appendTo($('#linkp'+idSala+' ul:eq(0)'));
+        $('<li idMensaje="'+idMensaje+'" class="sent"><img src="'+ getimageUser() +'" alt="" /><p><span class="separator">'+nombre+', '+date+'</span>' + mensaje + '</p></li>').appendTo($('#linkp'+idSala+' ul:eq(0)'));
         $('a[href$=linkp'+idSala+'] .preview').html('<span>Tú: </span>' + mensaje);
         
     }else{
-        $("#linkp"+idSala+" ul:eq(0)").append('<li class="replies">'+
+        $("#linkp"+idSala+" ul:eq(0)").append('<li idMensaje="'+idMensaje+'" class="replies">'+
                                                     getImage(imagen)+
                                                     '<p>'+
                                                         '<span class="separator">'+
