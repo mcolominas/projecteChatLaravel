@@ -9,20 +9,28 @@ use DateTime;
 
 class NoticiasController extends Controller
 {
-    public function getNoticias(){        
-        $consultas = Noticia::orderBy('created_at', 'desc')->get();
+    public function getNoticias(){
+        $consultasImportantes = Noticia::orderBy('created_at', 'desc')
+                    -> where("importante","=", "1")
+                    -> get();     
+        $consultas = Noticia::orderBy('created_at', 'desc')
+                    -> where("importante","=", "0")
+                    -> get();
         $categorias = Noticia::select("categoria as nombre")
                     -> groupBy('categoria')
                     -> orderBy('categoria', 'desc')
                     -> get();
 
-        return view('paginas.noticias', ["noticias" => $consultas, "categorias" => $categorias]);
+        return view('paginas.noticias', ["noticias" => $consultas, "noticiasImportantes" => $consultasImportantes, "categorias" => $categorias]);
 
     }
 
     public function getNoticiasByCategoria($categoria){
         $categoria = strtolower($categoria);
-        $consultas = Noticia::where("categoria","=", $categoria)
+        $consultasImportantes = Noticia::orderBy('created_at', 'desc')
+                    -> where([["categoria","=", $categoria],["importante","=", "1"]])
+                    -> get();  
+        $consultas = Noticia::where([["categoria","=", $categoria],["importante","=", "0"]])
                      -> orderBy('created_at', 'desc')
                      -> get();
         $categorias = Noticia::select("categoria as nombre")
@@ -31,7 +39,7 @@ class NoticiasController extends Controller
                     -> orderBy('categoria', 'desc')
                     -> get();
 
-        return view('paginas.noticias', ["noticias" => $consultas, "categorias" => $categorias, "categoriaActual" => ucfirst($categoria)]);
+        return view('paginas.noticias', ["noticias" => $consultas, "noticiasImportantes" => $consultasImportantes, "categorias" => $categorias, "categoriaActual" => ucfirst($categoria)]);
     }
 
     public function getAddNoticias(){
