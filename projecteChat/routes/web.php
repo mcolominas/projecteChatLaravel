@@ -28,6 +28,7 @@ Route::get('/foro', 'ForoController@getForo')->middleware('auth');
 Route::get('/intercanvios', 'IntercanviosController@getIntercanvios')->middleware('auth');
 
 Route::get('/noticias', 'NoticiasController@getNoticias');
+Route::get('/noticias/categoria/{categoria}', 'NoticiasController@getNoticiasByCategoria');
 Route::get('/noticias/add', 'NoticiasController@getAddNoticias')->middleware('auth');
 Route::put('/noticias/add', 'NoticiasController@putAddNoticias')->middleware('auth');
 
