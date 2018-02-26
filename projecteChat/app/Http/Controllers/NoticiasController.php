@@ -10,6 +10,11 @@ use DateTime;
 class NoticiasController extends Controller
 {
     public function getNoticias(){
+        //hacer que a los 7 dias se quite el importante
+        //https://laravel.com/docs/5.6/eloquent#updates
+        //https://laravel.com/docs/5.0/eloquent#insert-update-delete
+
+        
         $consultasImportantes = Noticia::orderBy('created_at', 'desc')
                     -> where("importante","=", "1")
                     -> get();     
@@ -50,7 +55,7 @@ class NoticiasController extends Controller
         if (!Auth::check()) return view('paginas.crearNoticia', array("mensaje" => array("user" => "Necesitas logearte para introducir una noticia.")));
 
         //Variables
-        $destinationPathImg = "img/noticias";
+        $destinationPathImg = "img/upload/noticias";
         $idUsuario = Auth::user()->id;
         $titul = $request->input('titulo');
         $descripcion = $request->input('mensaje');

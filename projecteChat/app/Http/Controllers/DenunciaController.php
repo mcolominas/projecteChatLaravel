@@ -18,7 +18,7 @@ class DenunciaController extends Controller
         if (!Auth::check()) return view('paginas.denuncias', array("mensaje" => array("user" => "Necesitas logearte para enviar una denuncia.")));
 
         //Variables
-        $destinationPathImg = "img/denuncias";
+        $destinationPathImg = "img/upload/denuncias";
         $idUsuario = Auth::user()->id;
         $imgDenuncia = $request->file('imgDenuncia');
         $descripcion = $request->input('mensaje');
