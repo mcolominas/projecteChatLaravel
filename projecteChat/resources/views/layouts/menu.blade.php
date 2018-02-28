@@ -34,13 +34,11 @@
 			  		</div>
 			  	</div>
 			  @endif
-			  @if ( Auth::user()->id_permisos == 2 )
 			  	<div class="row">
 			  		<div class="col-md-12">
 			  			<a class="dropdown-toggle {{ Request::is('denuncia/show') ? 'active' : ''}}" href="{{url('/denuncia/show')}}">Ver denuncias</a>
 			  		</div>
 			  	</div>
-			  @endif
 			  </ul>
 	        </li>
 	        <li class="{{ Request::is('foro') ? 'active' : ''}}">
