@@ -16,8 +16,7 @@ class ApiController extends Controller
 
     function getMensajesPublico(Request $request){
         $id = $request->input('idSala');
-    	$difHoraria = 3600;
-    	$timestamp = (new DateTime())->getTimestamp() - (60*60) + $difHoraria;
+    	$timestamp = (new DateTime())->getTimestamp() - 3600;
     	$data = gmdate("Y-m-d H:i:s", $timestamp);
 
     	$msj = MensajesPublico::from('users as usr')

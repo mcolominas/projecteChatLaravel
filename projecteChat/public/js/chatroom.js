@@ -58,7 +58,7 @@ function getStringMensaje(idSala){
             '</div>';
 }
 
-function getChats(){
+function getChatsPublics(){
     ajax("api/public/getChats", "get", null, function(){}, function(res){
         for (var i = 0; i < res.length ; i++) {
             $('#contacts .separator:eq(1)').before($(getStringChat(res[i].id, res[i].imagen, res[i].nombre)).click(function(){
@@ -77,8 +77,10 @@ function getLastMensajesPublicos(idSala){
     
     var idUsuario = getUserId();
     ajax("api/public/getLastMensajes", "get", {"idSala": idSala, "idMensaje": idLastMensaje}, function(){}, function(res){
+        var idLastMensaje = $("#linkp"+idSala+" li").last().attr("idMensaje");
         for (var i = 0; i < res.length ; i++) {
-            mensajeRecibido(idSala, res[i].username, res[i].enviado, res[i].imagen, res[i].mensaje, res[i].idMensaje, idUsuario == res[i].idUsuario);
+            if(res[i].idMensaje > idLastMensaje)
+                mensajeRecibido(idSala, res[i].username, res[i].enviado, res[i].imagen, res[i].mensaje, res[i].idMensaje, idUsuario == res[i].idUsuario);
         }
     });
 }
@@ -144,7 +146,7 @@ function mensajeRecibido(idSala, nombre, date, imagen, mensaje, idMensaje, envia
 
 $(function() {
     username = $("nav .navbar-right:eq(0) .dropdown-toggle strong").text();
-    getChats();
+    getChatsPublics();
 
     $('.submit').click(function() {
       newMessage();
