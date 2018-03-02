@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ChatPublico;
 use App\MensajesPublico;
-use DateTime;
+use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -16,8 +16,8 @@ class ApiController extends Controller
 
     function getMensajesPublico(Request $request){
         $id = $request->input('idSala');
-    	$timestamp = (new DateTime())->getTimestamp() - 3600;
-    	$data = gmdate("Y-m-d H:i:s", $timestamp);
+        $data = Carbon::now();
+        $data ->hour -= 1;
 
     	$msj = MensajesPublico::from('users as usr')
 			    ->join('mensajes_publicos as msj',function($join){

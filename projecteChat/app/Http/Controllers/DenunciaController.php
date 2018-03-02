@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Denuncia;
 use App\MensajesDenuncia;
-use DateTime;
+use Carbon\Carbon;
 
 class DenunciaController extends Controller
 {
@@ -44,7 +44,7 @@ class DenunciaController extends Controller
 
         //Almacenar imagen
         if(isset($imgDenuncia)){
-            $nombreImg = $idUsuario.(new DateTime())->getTimestamp().".".$extencionImg;
+            $nombreImg = $idUsuario.Carbon::now()->timestamp.".".$extencionImg;
             $request->file('imgDenuncia')->move($destinationPathImg, $nombreImg);
         }
 
