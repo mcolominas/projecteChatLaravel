@@ -6,3 +6,9 @@ h3{
 .content .well img{
 	border-radius: 5px;
 }
+img.importante{
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	height: 65%;
+}

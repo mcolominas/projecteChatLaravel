@@ -37,6 +37,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3>{{ $noticia->titulo }}</h3>
+                        <img src="{{ URL::asset('img/gold_star.png') }}" class="importante" alt="importante">
                     </div>
                 </div>
                 <div class="row">
