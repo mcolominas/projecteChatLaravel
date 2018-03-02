@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Noticia;
-use DateTime;
+use Carbon\Carbon;
 
 class NoticiasController extends Controller
 {
     public function getNoticias(){
-        //hacer que a los 7 dias se quite el importante
-        //https://laravel.com/docs/5.6/eloquent#updates
-        //https://laravel.com/docs/5.0/eloquent#insert-update-delete
+        $data = Carbon::now();
+        $data ->day -= 7;
 
+        Noticia::where([["created_at","<=", $data],["importante","=", "1"]]) 
+                -> update(["importante" => "0"]);
         
         $consultasImportantes = Noticia::orderBy('created_at', 'desc')
                     -> where("importante","=", "1")
@@ -52,8 +53,6 @@ class NoticiasController extends Controller
     }
 
     public function putAddNoticias(Request $request){
-        if (!Auth::check()) return view('paginas.crearNoticia', array("mensaje" => array("user" => "Necesitas logearte para introducir una noticia.")));
-
         //Variables
         $destinationPathImg = "img/upload/noticias";
         $idUsuario = Auth::user()->id;
@@ -84,7 +83,7 @@ class NoticiasController extends Controller
 
         //Almacenar imagen
         if(isset($imgNoticia)){
-            $nombreImg = $idUsuario.(new DateTime())->getTimestamp().".".$extencionImg;
+            $nombreImg = $idUsuario.Carbon::now()->timestamp.".".$extencionImg;
             $request->file('imgNoticia')->move($destinationPathImg, $nombreImg);
         }
 
