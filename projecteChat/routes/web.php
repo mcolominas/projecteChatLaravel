@@ -37,3 +37,6 @@ Route::get('/api/private/getChats/{id}', 'ApiController@getChatPrivado')->where(
 Route::get('/api/public/getMensajes', 'ApiController@getMensajesPublico');
 Route::get('/api/public/setMensajes', 'ApiController@setMensajesPublico');
 Route::get('/api/public/getLastMensajes', 'ApiController@getLastMensajes');
+
+Route::get('/api/noticias/getNoticias', 'ApiNoticias@getNoticias');
+Route::get('/api/noticias/getCategorias', 'ApiNoticias@getCategorias');
