@@ -10,7 +10,7 @@
 @extends('layouts.master')
 
 @section('content')
-	<div id="letra" class="text-left">
+	<div class="text-left">
     <p>Bienvenidos a la página web de Cornellà de Llobregat, en esta pagina web podreis:</p>
     <ul>
     <li>Chatear con gente de vuestra zona.</li>
@@ -22,7 +22,7 @@
 	</div>
 
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Abrir estetica</button>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-cog"></span> Abrir estetica</button>
 
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -31,33 +31,50 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Cambiar color</h4>
+            <h4 class="modal-title">Editar estilo de la pagina</h4>
           </div>
 
-          <div class="col-md-12 col-xs-12">
-          <div class="col-md-4 col-xs-4"> 
-                <div>Menu  
-                    <input id="menu2" name="text">
+          <div class="row">
+            <div class="col-md-4"> 
+                <div><b>Color Menu</b> 
+                    <input id="menu2" name="text" style="width: 80%; margin-bottom: 5px;">
                     <button id="clicar" type="button" class="btn btn-primary">APLICAR</button>
                 </div> 
             </div>
-            <div class="col-md-4 col-xs-4"> 
-                <div>Fondo  
-                    <input id="menu3" name="text">
+            <div class="col-md-4"> 
+                <div><b>Color Fondo </b> 
+                    <input id="menu3" name="text" style="width: 80%; margin-bottom: 5px;">
                     <button id="clicar2" type="button" class="btn btn-primary">APLICAR</button>
                 </div> 
             </div>
-            <div class="col-md-4 col-xs-4"> 
-                 <div>Tamaño Letra  
-                    <input id="menu4" name="text">
-                    <button id="clicar3" type="button" class="btn btn-primary">APLICAR</button>
+            <div class="col-md-4 "> 
+                 <div><b>Tamaño Letra(px)</b>  
+                    <input id="menu4" name="text" style="width: 80%; margin-bottom: 5px;">
+                    <button id="clicar3" type="button" class="btn btn-primary" style="margin-bottom: 20px;">APLICAR</button>
                 </div> 
             </div>
+            <div class="col-md-4 "> 
+                 <div><b>Color Letra</b>  
+                    <input id="menu5" name="text" style="width: 80%; margin-bottom: 5px;">
+                    <button id="clicar4" type="button" class="btn btn-primary" style="margin-bottom: 20px;">APLICAR</button>
+                </div> 
             </div>
+            <div class="col-md-4"> 
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><b>Estilo Letra</b>
+                <span class="caret"></span></button>
+                <ul id="menu6" class="dropdown-menu">
+                  <li><a href="#" style="font-family: Arial;">Arial</a></li>
+                  <li><a href="#" style="font-family: Times;">Times New Roman</a></li>
+                  <li><a href="#" style="font-family: Comic;">Comic Sans</a></li>
+                </ul>
+              </div>
+        </div>
+        </div>
 
           <div class="modal-footer">
-            <button id="eliminaCookie" type="button" class="btn btn-default" data-dismiss="modal">Valores por defecto</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button id="eliminaCookie" type="button" class="navbar-left" class="btn btn-default" data-dismiss="modal">Valores por defecto</button>
+            <button type="button" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
           </div>
         </div>
 
