@@ -1,6 +1,13 @@
-//recibe 5 paramrtros, uno la url a la que se conecta, el otro el metodo, el otro un array con los parametros,
-//en caso de ninguno se pone null y 2 funcionas, una para cuando esta descargando los datos del servidor, 
-//y la otra cuando ya ha recibido los datos, recibe un parametro con los datos del servidor
+/**
+* @description Funcion generica para hacer llamas ajax
+*
+* @method ajax
+* @param {String} url URL que se quiere utilizar
+* @param {String} method Metodo que se quiere utilizar (get, post)
+* @param {Array} params Parametros que se pasan por get o post, en caso de null no se pasara ningun dato
+* @param {Function} loading Funcion que utiliza mientras esta esperando una respuesta
+* @param {Function} respuesta Funcion que recibe la respuesta del servidor
+*/
 function ajax(url, method, params, loading, respuesta){
     if(params != null)
         $.ajax({
@@ -19,29 +26,46 @@ function ajax(url, method, params, loading, respuesta){
         });
 }
 
-//generateNoticia("test", "prueba", null).appendTo('.col-md-offset-1.col-md-10')
+/**
+* @description Obtienes un objeto con el cuerpo de una noticia generada
+*
+* @method generateNoticia
+* @param {String} titulo Titulo de la noticia
+* @param {String} contenido Descripción de la noticia
+* @param {String} categoria Categoria de la noticia
+* @param {String} img Imagen de la noticia
+* @param {Boolean} [importante=false] Si es la noticia importante o no
+* @return {Object} Devuelve un objeto jquery con un bloque de noticia generado
+*/
 function generateNoticia(titulo, contenido, categoria, img, importante = false){
 	if(img == null) img = "/img/imageEmpty.png";
-	return $('<div categoria="'+categoria+'" class="row marginTop"><div>' +
-            '<div class="col-md-3"><img src='+img+' class="img-responsive"></div>'+
-            '<div class="col-md-9">' +
-                '<div class="row">' +
-                    '<div class="col-md-12">' +
-                        '<h3>' + titulo+ '</h3>' +
-                        (importante ? '<img src="img/gold_star.png" class="importante" alt="importante">' : '') +
-                    '</div>' +
-                '</div>' +
-                '<div class="row">' +
-                    '<div class="col-md-12">' +
-                        contenido +
-                    '</div>'+
-                '</div>'+
-            '</div>'+
-        '</div></div>');
+	return $('<div categoria="'+categoria+'" class="row marginTop">'+
+        		'<div class="col-md-3"><img src='+img+' class="img-responsive"></div>'+
+        			'<div class="col-md-9">' +
+            			'<div class="row">' +
+               				'<div class="col-md-12">' +
+                    			'<h3>' + titulo+ '</h3>' +
+                    			(importante ? '<img src="img/gold_star.png" class="importante" alt="importante">' : '') +
+                			'</div>' +
+            			'</div>' +
+                		'<div class="row">' +
+                    		'<div class="col-md-12">' +
+                        		contenido +
+                    		'</div>'+
+                		'</div>'+
+	        		'</div>'+
+	        	'</div>'+
+        	'</div>');
 }
 
-//generateCategorias(["a", "b"]).appendTo('.col-md-offset-1.col-md-10')
-function generateCategorias(categorias){
+/**
+* @description Obtienes un objeto con el cuertpo del dropdown que contiene las categorias disponibles
+*
+* @method generateDropDownCategorias
+* @param {Array} categorias Se para un array que contiene objetos de las categorias
+* @return {Object} Devuelve un objeto jquery con un bloque de noticia generado
+*/
+function generateDropDownCategorias(categorias){
 	var dropdown = $('<div class="dropdown text-left"></div>');
 	var button = $('<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sin categoria' +
     '<span class="caret"></span></button>');
@@ -57,10 +81,17 @@ function generateCategorias(categorias){
   return dropdown;
 }
 
+/**
+* @description Se activa al seleccionar una categoria en el dropdown
+*
+* @method clickCategoria
+* @param {Object} e Evento que se genera
+*/
 function clickCategoria(e){
 	e.preventDefault();
 	var categoria = $(this);
 	var button = categoria.parent().parent().parent().find("button").eq(0);	
+
 	var ul = categoria.parent().parent();
 	var li = $('<li></li>')
     	li.append($('<a href="#">'+button.text()+'</a>').on("click", clickCategoria));
@@ -75,29 +106,41 @@ function clickCategoria(e){
 
 	var a = ul.find("li a")
 
-	showCategorias(button.text());
+	if(button.text() !== "Sin categoria")
+		showNoticias(button.text());
 
 	for(var i = 0; i < a.length; i++)
 		if(button.text() === "Sin categoria")
-			showCategorias($(a[i]).text());
+			showNoticias($(a[i]).text());
 		else
-			hiddenCategorias($(a[i]).text());
+			hiddenNoticias($(a[i]).text());
 }
 
-function selectCategoria(categoria){
-
+/**
+* @description Oculta la noticias con la categoria pasada
+*
+* @method hiddenNoticias
+* @param {String} categoria Categoria para ocultar
+*/
+function hiddenNoticias(categoria){
+	$( "[categoria='"+categoria+"']" ).hide( "slide", {"direction" : "down"}, 300);
 }
 
-function hiddenCategorias(categoria){
-	//$("[categoria='"+categoria+"']").hide();
-	$( "[categoria='"+categoria+"']" ).hide( "blind", {"direction" : "up"}, 50000 );
+/**
+* @description Muestra la noticias con la categoria pasada
+*
+* @method showNoticias
+* @param {String} categoria Categoria para mostrar
+*/
+function showNoticias(categoria){
+	$( "[categoria='"+categoria+"']" ).show( "slide", {"direction" : "up"}, 300);
 }
 
-function showCategorias(categoria){
-	$( "[categoria='"+categoria+"']" ).show( "slide", 5000 );
-	//$("[categoria='"+categoria+"']").show();
-}
-
+/**
+* @description Descarga las noticias por ajax y las añade a la pagina
+*
+* @method addNoticias
+*/
 function addNoticias(){
 	ajax("api/noticias/getNoticias", "get", null, function(){}, function(res){
 		for (var i = 0; i < res.importantes.length ; i++) {
@@ -111,11 +154,17 @@ function addNoticias(){
     });
 }
 
+/**
+* @description Descarga las categorias por ajax y las añade a la pagina
+*
+* @method addCategorias
+*/
 function addCategorias(){
 	ajax("api/noticias/getCategorias", "get", null, function(){}, function(res){
-		generateCategorias(res).insertBefore($('#noticias').parent().parent().find("> div"))
+		generateDropDownCategorias(res).insertBefore($('#noticias').parent().parent().find("> div"))
 	});
 }
+
 
 $(function(){
 	addCategorias();
